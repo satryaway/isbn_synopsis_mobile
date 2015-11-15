@@ -179,11 +179,11 @@ public class DataInputActivity extends AppCompatActivity {
             total++;
         }
 
-        /** if (coverImageFile == null) {
+         if (coverImageFile == null) {
             Toast.makeText(DataInputActivity.this, R.string.insert_cover_image, Toast.LENGTH_SHORT).show();
         } else {
             total++;
-        } */
+        }
 
         return total == 5;
     }
