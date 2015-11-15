@@ -102,7 +102,7 @@ public class DataInputActivity extends AppCompatActivity {
         requestParams.put(CommonConstants.PENULIS, penulisET.getText().toString());
         requestParams.put(CommonConstants.ISBN, isbnET.getText().toString());
         requestParams.put(CommonConstants.SINOPSIS, sinopsisET.getText().toString());
-//        requestParams.put(CommonConstants.COVER, coverImageFile, "image/jpg");
+        requestParams.put(CommonConstants.COVER, coverImageFile, "image/jpeg");
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.please_wait));
@@ -288,7 +288,7 @@ public class DataInputActivity extends AppCompatActivity {
         }
         // Create a media file name
         File mediaFile;
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator + "cover" + ".jpeg");
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + "cover" + ".jpg");
         return mediaFile;
     }
 
