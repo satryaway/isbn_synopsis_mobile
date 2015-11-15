@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.github.mrengineer13.snackbar.SnackBar;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.samstudio.isbnsynopsis.utils.APIAgent;
@@ -129,6 +131,14 @@ public class DataInputActivity extends AppCompatActivity {
                     }
 
                     Toast.makeText(DataInputActivity.this, response.getString(CommonConstants.MESSAGE), Toast.LENGTH_SHORT).show();
+                    /*new SnackBar.Builder(DataInputActivity.this)
+                            .withMessage("This library is awesome!") // OR
+                            .withActionMessage("Action") // OR
+                            .withTextColorId(R.color.colorAccent)
+                            .withBackgroundColorId(R.color.colorPrimary)
+                            .withDuration((short) 1000)
+                            .show();*/
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -185,7 +195,7 @@ public class DataInputActivity extends AppCompatActivity {
             total++;
         }
 
-        return total == 5;
+        return total == 6;
     }
 
     private void makePopupDialog() {

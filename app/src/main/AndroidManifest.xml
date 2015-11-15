@@ -29,6 +29,7 @@
         </activity>
 
         <activity android:name=".DataInputActivity" />
+        <activity android:name=".BookDetailActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
     </application>
 

@@ -15,14 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.samstudio.isbnsynopsis.BookDetailActivity;
+import com.samstudio.isbnsynopsis.DataInputActivity;
 import com.samstudio.isbnsynopsis.R;
+import com.samstudio.isbnsynopsis.utils.CommonConstants;
 
 /**
  * Created by satryaway on 11/15/2015.
  */
 public class ScanBarcodeFragment extends Fragment {
-
-
     private View view;
     private Button scanBarcodeBtn;
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
@@ -30,6 +31,19 @@ public class ScanBarcodeFragment extends Fragment {
     public static Fragment newInstance(Context context) {
         ScanBarcodeFragment scanBarcodeFragment = new ScanBarcodeFragment();
         return scanBarcodeFragment;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == getActivity().RESULT_OK) {
+            String contents = data.getStringExtra("SCAN_RESULT");
+            String format = data.getStringExtra("SCAN_RESULT_FORMAT");
+
+            Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+            intent.putExtra(CommonConstants.CONTENT_CODE, contents);
+            startActivity(intent);
+        }
     }
 
     @Nullable
