@@ -79,13 +79,7 @@ public class BookDetailActivity extends AppCompatActivity {
                     }
 
                     //Toast.makeText(DataInputActivity.this, response.getString(CommonConstants.MESSAGE), Toast.LENGTH_SHORT).show();
-                    new SnackBar.Builder(BookDetailActivity.this)
-                            .withMessage("This library is awesome!") // OR
-                            .withActionMessage("Action") // OR
-                            .withTextColorId(R.color.colorAccent)
-                            .withBackgroundColorId(R.color.colorPrimary)
-                            .withDuration((short) 1000)
-                            .show();
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();

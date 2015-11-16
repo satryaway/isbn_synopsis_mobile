@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -109,7 +108,7 @@ public class DataInputActivity extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.please_wait));
 
-        APIAgent.post(URL, requestParams, new JsonHttpResponseHandler(){
+        APIAgent.post(URL, requestParams, new JsonHttpResponseHandler() {
             @Override
             public void onStart() {
                 progressDialog.show();
@@ -127,10 +126,17 @@ public class DataInputActivity extends AppCompatActivity {
                     if (status == CommonConstants.RESULT_OK) {
                         Intent intent = new Intent(DataInputActivity.this, HomeActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra(CommonConstants.MESSAGE, true);
                         startActivity(intent);
+                    } else {
+                        new SnackBar.Builder(DataInputActivity.this)
+                                .withMessage("Gagal input buku!") // OR
+                                .withTextColorId(R.color.colorAccent)
+                                .withBackgroundColorId(R.color.colorPrimary)
+                                .withDuration((short) 5000)
+                                .show();
                     }
-
-                    Toast.makeText(DataInputActivity.this, response.getString(CommonConstants.MESSAGE), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(DataInputActivity.this, response.getString(CommonConstants.MESSAGE), Toast.LENGTH_SHORT).show();
                     /*new SnackBar.Builder(DataInputActivity.this)
                             .withMessage("This library is awesome!") // OR
                             .withActionMessage("Action") // OR
@@ -189,7 +195,7 @@ public class DataInputActivity extends AppCompatActivity {
             total++;
         }
 
-         if (coverImageFile == null) {
+        if (coverImageFile == null) {
             Toast.makeText(DataInputActivity.this, R.string.insert_cover_image, Toast.LENGTH_SHORT).show();
         } else {
             total++;
@@ -241,6 +247,7 @@ public class DataInputActivity extends AppCompatActivity {
     private void putData() {
         contentCodeET.setText(contentCode);
     }
+
     private void beginCrop(Uri source) {
         Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
         Crop.of(source, destination).asSquare().start(this);

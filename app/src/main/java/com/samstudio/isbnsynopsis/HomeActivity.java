@@ -2,8 +2,6 @@ package com.samstudio.isbnsynopsis;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,21 +21,37 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.github.mrengineer13.snackbar.SnackBar;
 import com.samstudio.isbnsynopsis.fragments.DataInputFragment;
 import com.samstudio.isbnsynopsis.fragments.ScanBarcodeFragment;
+import com.samstudio.isbnsynopsis.utils.CommonConstants;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Button scanBarcodeBtn;
-
+    static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
+    private boolean isInputting;
+    private String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        message = "Selamat Datang";
+        handleIntent();
 
+        if (isInputting) {
+            message = "Berhasil input buku!";
+        }
+
+        new SnackBar.Builder(this)
+                .withMessage(message) // OR
+                .withTextColorId(R.color.colorAccent)
+                .withBackgroundColorId(R.color.colorPrimary)
+                .withDuration((short) 5000)
+                .show();
 
         /*android.support.v4.app.FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.content, Fragment.instantiate(this, ScanBarcodeFragment.class.getCanonicalName()));
@@ -67,6 +81,10 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
+    private void handleIntent() {
+        Intent intent = getIntent();
+        isInputting = intent.getBooleanExtra(CommonConstants.MESSAGE, false);
+    }
 
 
     @Override
@@ -107,28 +125,35 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camara) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-            /*Fragment fr = ScanBarcodeFragment.newInstance(HomeActivity.this);
-
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_place, fr);
-            fragmentTransaction.commit();*/
-
+        if (id == R.id.nav_scan) {
+            try {
+                Intent intent = new Intent(ACTION_SCAN);
+                intent.putExtra("SCAN_MODE", "PRODUCT_MODE");
+                startActivityForResult(intent, CommonConstants.SCAN_BOOK_CODE);
+            } catch (ActivityNotFoundException anfe) {
+                showDialog(HomeActivity.this, "No Scanner Found", "Download a code scanner activity?", "Yes", "No").show();
+            }
+        } else if (id == R.id.nav_search_book) {
             android.support.v4.app.FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
             tx.replace(R.id.content, Fragment.instantiate(this, ScanBarcodeFragment.class.getCanonicalName()));
             tx.commit();
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_isbn) {
 
-        } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_input) {
+            try {
+                Intent intent = new Intent(ACTION_SCAN);
+                intent.putExtra("SCAN_MODE", "PRODUCT_MODE");
+                startActivityForResult(intent, CommonConstants.INPUT_BOOK_CODE);
+            } catch (ActivityNotFoundException anfe) {
+                showDialog(HomeActivity.this, "No Scanner Found", "Download a code scanner activity?", "Yes", "No").show();
+            }
+        } else if (id == R.id.nav_about) {
             android.support.v4.app.FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
             tx.replace(R.id.content, Fragment.instantiate(this, DataInputFragment.class.getCanonicalName()));
             tx.commit();
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_login) {
 
         }
 
@@ -137,8 +162,45 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
+    private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
+        AlertDialog.Builder downloadDialog = new AlertDialog.Builder(act);
+        downloadDialog.setTitle(title);
+        downloadDialog.setMessage(message);
+        downloadDialog.setPositiveButton(buttonYes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Uri uri = Uri.parse("market://search?q=pname:" + "com.google.zxing.client.android");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                try {
+                    act.startActivity(intent);
+                } catch (ActivityNotFoundException anfe) {
+
+                }
+            }
+        });
+        downloadDialog.setNegativeButton(buttonNo, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        return downloadDialog.show();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CommonConstants.SCAN_BOOK_CODE && resultCode == RESULT_OK) {
+            String contents = data.getStringExtra("SCAN_RESULT");
+            String format = data.getStringExtra("SCAN_RESULT_FORMAT");
+
+            Intent intent = new Intent(HomeActivity.this, BookDetailActivity.class);
+            intent.putExtra(CommonConstants.CONTENT_CODE, contents);
+            startActivity(intent);
+        } else if (requestCode == CommonConstants.INPUT_BOOK_CODE && resultCode == RESULT_OK) {
+            String contents = data.getStringExtra("SCAN_RESULT");
+            String format = data.getStringExtra("SCAN_RESULT_FORMAT");
+
+            Intent intent = new Intent(HomeActivity.this, DataInputActivity.class);
+            intent.putExtra(CommonConstants.CONTENT_CODE, contents);
+            startActivity(intent);
+        }
     }
 }

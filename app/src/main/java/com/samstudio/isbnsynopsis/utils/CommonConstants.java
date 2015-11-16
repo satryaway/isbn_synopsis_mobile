@@ -21,4 +21,6 @@ public class CommonConstants {
     public static String MESSAGE = "message";
     public static String ID = "id";
     public static String RETURN_DATA = "return_data";
+    public static int SCAN_BOOK_CODE = 27;
+    public static int INPUT_BOOK_CODE = 8;
 }
