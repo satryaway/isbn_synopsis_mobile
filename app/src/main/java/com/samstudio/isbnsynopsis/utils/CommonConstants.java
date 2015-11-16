@@ -27,4 +27,7 @@ public class CommonConstants {
     public static int SCAN_BOOK_CODE = 27;
     public static int INPUT_BOOK_CODE = 8;
     public static String IS_PASSING_ID = "is_passing_id";
+    public static String SERVICE_LOGIN = BASE_URL + "login";
+    public static String EMAIL = "email";
+    public static String PASSWORD = "password";
 }

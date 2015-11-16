@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.github.mrengineer13.snackbar.SnackBar;
+import com.samstudio.isbnsynopsis.fragments.LoginFragment;
 import com.samstudio.isbnsynopsis.fragments.SearchBookFragment;
 import com.samstudio.isbnsynopsis.utils.CommonConstants;
 
@@ -155,10 +156,10 @@ public class HomeActivity extends AppCompatActivity
                 showDialog(HomeActivity.this, "No Scanner Found", "Download a code scanner activity?", "Yes", "No").show();
             }
         } else if (id == R.id.nav_about) {
-            /*android.support.v4.app.FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-            tx.replace(R.id.content, Fragment.instantiate(this, DataInputFragment.class.getCanonicalName()));
-            tx.commit();*/
         } else if (id == R.id.nav_login) {
+            android.support.v4.app.FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+            tx.replace(R.id.content, Fragment.instantiate(this, LoginFragment.class.getCanonicalName()));
+            tx.commit();
 
         }
 
