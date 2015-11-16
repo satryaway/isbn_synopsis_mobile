@@ -32,6 +32,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private Book book = new Book();
     private UniversalImageLoader imageLoader;
     private ImageView coverIV;
+    private boolean isPassingID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +50,12 @@ public class BookDetailActivity extends AppCompatActivity {
     private void handleIntent() {
         Intent intent = getIntent();
         code = intent.getStringExtra(CommonConstants.CONTENT_CODE);
+        isPassingID = intent.getBooleanExtra(CommonConstants.IS_PASSING_ID, false);
     }
 
     private void getData() {
-        String url = CommonConstants.SERVICE_GET_BOOK_BY_CODE + code;
+        String url = isPassingID ? CommonConstants.SERVICE_GET_BOOK_BY_ID : CommonConstants.SERVICE_GET_BOOK_BY_CODE;
+        url = url + code;
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.please_wait));

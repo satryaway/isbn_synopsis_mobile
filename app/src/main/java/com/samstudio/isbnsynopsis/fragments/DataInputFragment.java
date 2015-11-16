@@ -36,20 +36,7 @@ public class DataInputFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = (ViewGroup) inflater.inflate(R.layout.scan_barcode_layout, null);
-        scanBarcodeBtn = (Button) view.findViewById(R.id.scan_barcode_btn);
-        scanBarcodeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    Intent intent = new Intent(ACTION_SCAN);
-                    intent.putExtra("SCAN_MODE", "PRODUCT_MODE");
-                    startActivityForResult(intent, 0);
-                } catch (ActivityNotFoundException anfe) {
-                    showDialog(getActivity(), "No Scanner Found", "Download a scanner code activity?", "Yes", "No").show();
-                }
-            }
-        });
+        view = (ViewGroup) inflater.inflate(R.layout.search_book_layout, null);
         return view;
     }
 
@@ -64,27 +51,5 @@ public class DataInputFragment extends Fragment {
             intent.putExtra(CommonConstants.CONTENT_CODE, contents);
             startActivity(intent);
         }
-    }
-
-    private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
-        AlertDialog.Builder downloadDialog = new AlertDialog.Builder(act);
-        downloadDialog.setTitle(title);
-        downloadDialog.setMessage(message);
-        downloadDialog.setPositiveButton(buttonYes, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Uri uri = Uri.parse("market://search?q=pname:" + "com.google.zxing.client.android");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                try {
-                    act.startActivity(intent);
-                } catch (ActivityNotFoundException anfe) {
-
-                }
-            }
-        });
-        downloadDialog.setNegativeButton(buttonNo, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        });
-        return downloadDialog.show();
     }
 }

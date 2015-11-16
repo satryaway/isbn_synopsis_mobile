@@ -22,8 +22,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.github.mrengineer13.snackbar.SnackBar;
-import com.samstudio.isbnsynopsis.fragments.DataInputFragment;
-import com.samstudio.isbnsynopsis.fragments.ScanBarcodeFragment;
+import com.samstudio.isbnsynopsis.fragments.SearchBookFragment;
 import com.samstudio.isbnsynopsis.utils.CommonConstants;
 
 public class HomeActivity extends AppCompatActivity
@@ -54,7 +53,7 @@ public class HomeActivity extends AppCompatActivity
                 .show();
 
         /*android.support.v4.app.FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.replace(R.id.content, Fragment.instantiate(this, ScanBarcodeFragment.class.getCanonicalName()));
+        tx.replace(R.id.content, Fragment.instantiate(this, SearchBookFragment.class.getCanonicalName()));
         tx.commit();*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -64,8 +63,13 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                try {
+                    Intent intent = new Intent(ACTION_SCAN);
+                    intent.putExtra("SCAN_MODE", "PRODUCT_MODE");
+                    startActivityForResult(intent, CommonConstants.SCAN_BOOK_CODE);
+                } catch (ActivityNotFoundException anfe) {
+                    showDialog(HomeActivity.this, "No Scanner Found", "Download a code scanner activity?", "Yes", "No").show();
+                }
             }
         });
 
@@ -134,8 +138,9 @@ public class HomeActivity extends AppCompatActivity
                 showDialog(HomeActivity.this, "No Scanner Found", "Download a code scanner activity?", "Yes", "No").show();
             }
         } else if (id == R.id.nav_search_book) {
+            getSupportActionBar().setTitle("Cari Buku");
             android.support.v4.app.FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-            tx.replace(R.id.content, Fragment.instantiate(this, ScanBarcodeFragment.class.getCanonicalName()));
+            tx.replace(R.id.content, Fragment.instantiate(this, SearchBookFragment.class.getCanonicalName()));
             tx.commit();
         } else if (id == R.id.nav_isbn) {
 
@@ -150,9 +155,9 @@ public class HomeActivity extends AppCompatActivity
                 showDialog(HomeActivity.this, "No Scanner Found", "Download a code scanner activity?", "Yes", "No").show();
             }
         } else if (id == R.id.nav_about) {
-            android.support.v4.app.FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+            /*android.support.v4.app.FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
             tx.replace(R.id.content, Fragment.instantiate(this, DataInputFragment.class.getCanonicalName()));
-            tx.commit();
+            tx.commit();*/
         } else if (id == R.id.nav_login) {
 
         }
