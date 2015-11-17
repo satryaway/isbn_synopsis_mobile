@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class BookDetailActivity extends AppCompatActivity {
         imageLoader = new UniversalImageLoader(this);
         imageLoader.initImageLoader();
         setContentView(R.layout.book_detail_layout);
+        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
 
         handleIntent();
         getData();
@@ -111,7 +113,13 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void setCallBack() {
-
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+            }
+        });
     }
 
     private void putData() {
@@ -121,5 +129,11 @@ public class BookDetailActivity extends AppCompatActivity {
         penulisTV.setText(book.getPenulis());
         isbnTV.setText(book.getIsbn());
         sinopsisTV.setText(book.getSinopsis());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
     }
 }

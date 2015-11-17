@@ -126,7 +126,7 @@ public class DataInputActivity extends AppCompatActivity {
                     if (status == CommonConstants.RESULT_OK) {
                         Intent intent = new Intent(DataInputActivity.this, HomeActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra(CommonConstants.MESSAGE, true);
+                        intent.putExtra(CommonConstants.MESSAGE, "Berhasil input buku!");
                         startActivity(intent);
                     } else {
                         new SnackBar.Builder(DataInputActivity.this)

@@ -4,21 +4,47 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/judul_tv"
+    <FrameLayout
+        android:id="@+id/search_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <EditText
+            android:id="@+id/search_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Masukkan no ISBN"
+            android:imeOptions="actionSearch"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <ImageView
+            android:id="@+id/clear_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="5dp"
+            android:visibility="gone"
+            android:background="@android:drawable/presence_offline"/>
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/search_btn"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/search_wrapper"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center_horizontal"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        android:text="Cari" />
 
     <ScrollView
+        android:id="@+id/detail_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="invisible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,6 +66,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:text="Judul"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/judul_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="Penulis"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp" />
@@ -49,48 +89,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="22sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="ISBN"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/isbn_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="22sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Sinopsis"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/sinopsis_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:singleLine="false"
-                android:textSize="22sp" />
-
-            <Button
-                android:id="@+id/back_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/colorPrimary"
-                android:padding="10dp"
-                android:text="Kembali"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
 
         </LinearLayout>
 

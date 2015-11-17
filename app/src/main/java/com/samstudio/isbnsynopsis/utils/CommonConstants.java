@@ -12,6 +12,7 @@ public class CommonConstants {
     public static String SERVICE_GET_BOOK_BY_ID = BASE_URL + "buku/id/";
     public static Object SERVICE_GET_BOOK = BASE_URL + "buku/";
     public static String SERVICE_GET_BOOK_BY_JUDUL = BASE_URL + "buku/judul/";
+    public static String SERVICE_GET_BOOK_BY_ISBN = BASE_URL + "buku/isbn/";
     public static String SERVICE_GET_COVER_IMAGE = BASE_URL + "assets/images/";
     public static String KODE = "kode";
     public static String JUDUL = "judul";
@@ -30,4 +31,7 @@ public class CommonConstants {
     public static String SERVICE_LOGIN = BASE_URL + "login";
     public static String EMAIL = "email";
     public static String PASSWORD = "password";
+    public static String ISBN_APP = "isbn_app";
+    public static String IS_LOGGED_IN = "is_logged_in";
+    public static String NAME = "name";
 }

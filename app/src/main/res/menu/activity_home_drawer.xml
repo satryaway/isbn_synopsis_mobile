@@ -2,23 +2,41 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_scan" android:icon="@drawable/barcode"
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@android:drawable/presence_invisible"
+            android:title="Beranda" />
+        <item
+            android:id="@+id/nav_scan"
+            android:icon="@drawable/barcode"
             android:title="Scan Barcode" />
-        <item android:id="@+id/nav_search_book" android:icon="@android:drawable/ic_menu_agenda"
+        <item
+            android:id="@+id/nav_search_book"
+            android:icon="@android:drawable/ic_menu_agenda"
             android:title="Data Buku" />
-        <item android:id="@+id/nav_isbn" android:icon="@android:drawable/ic_search_category_default"
+        <item
+            android:id="@+id/nav_isbn"
+            android:icon="@android:drawable/ic_search_category_default"
             android:title="Cari Data ISBN" />
-        <item android:id="@+id/nav_input" android:icon="@android:drawable/ic_menu_edit"
+        <item
+            android:id="@+id/nav_input"
+            android:icon="@android:drawable/ic_menu_edit"
             android:title="Input Buku" />
+
+    </group>
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="About" />
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@android:drawable/ic_secure"
+            android:title="Log In" />
     </group>
 
-    <item android:title="Pengaturan">
-        <menu>
-            <item android:id="@+id/nav_about" android:icon="@android:drawable/ic_menu_myplaces"
-                android:title="About" />
-            <item android:id="@+id/nav_login" android:icon="@android:drawable/ic_secure"
-                android:title="Log In" />
-        </menu>
-    </item>
 
 </menu>
